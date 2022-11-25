@@ -1,7 +1,7 @@
 -- Lua 5.1 (WIP)
 
 local Settings = {
-    userId = 2431413350, -- Roblox user Id
+    userId = 0, -- Roblox user Id
     Valuation = {
         InventoryValue = true -- Calculate account's inventory value
     }
