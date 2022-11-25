@@ -9,8 +9,7 @@ local Settings = {
 
 -- Variables
 
-local HttpService = game:GetService("HttpService")
-local Endpoints = {
+local Endpoints = { -- Uses %s for string.format
     Inventory = {
         CanView = "https://inventory.roblox.com/v1/users/%s/can-view-inventory/",
         Categories = "https://inventory.roblox.com/v1/users/%s/categories/",
