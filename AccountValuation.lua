@@ -26,7 +26,7 @@ local Endpoints = {
 
 -- Functions
 
-local request = function(url, method, data)
+local req = function(url, method, data)
     local response
     if method == "GET" then
         response = request({
@@ -44,13 +44,12 @@ local request = function(url, method, data)
 end
 
 GetInventory = function()
-    local CanView = HttpService:JSONDecode(request(string.format(Endpoints.Inventory.CanView, Settings.userId), "GET"))
-    print(CanView)
+    local CanView = JSON.Decode(request(string.format(Endpoints.Inventory.CanView, Settings.userId), "GET"))
     if CanView.canView == false then
-        return print("Please set your inventory privacy to public")
+        return error("Please set your inventory privacy to public")
     end
-
-    local Categories = request(string.format(Endpoints.Inventory.Categories, Settings.userId), "GET")
+    
+    local Categories = req(string.format(Endpoints.Inventory.Categories, Settings.userId), "GET")
 
     print(Categories)
 end
