@@ -1,6 +1,9 @@
 --[[
   THIS SCRIPT IS R6 ONLY!
   I MADE THIS SHIT IN LIKE A DAY, DO NOT HURT ME
+  
+  local Creator, Discord = "Moon", "discord.gg/Nxj2nh9YJD"
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/0x580x540x43/LuaScripts/main/ShittyAnimator.lua"))(Creator, Discord)
 ]]
 
 
