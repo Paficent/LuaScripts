@@ -3,6 +3,8 @@
 
     The Synapse X init script: https://raw.githubusercontent.com/Acrillis/SynapseX/master/Synapse%20Scripts/InitScript.lua
     The line 'printconsole("Synapse X successfully (re)loaded.", 126, 174, 252)' is what this script detects
+    
+    Added Synapse X V3 detection as someone leaked the init script to me ^^
 ]]
 
 local isluaclosure = islclosure or function(...) -- Checks to see whether or not the given function is a C function or a function made in Lua
@@ -22,7 +24,7 @@ local function ConstantScan(constant) -- Looks through the garbage collector to 
 end
 
 for _,v in pairs(debug.getconstants(ConstantScan("game"))) do
-    if v == "Synapse X successfully (re)loaded." then -- Looks through the garbage collector to find the Synapse X init script that you can actually see in the 2019 source code leak, this is a constant that is in the script
+    if v == "Synapse X successfully (re)loaded."  or v == "_http" then -- Looks through the garbage collector to find the Synapse X init script that you can actually see in the 2019 source code leak, this is a constant that is in the script
         warn("Synapse detected")
     end
 end
