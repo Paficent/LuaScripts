@@ -17,7 +17,7 @@ end
 
 local function ConstantScan(constant) -- Looks through the garbage collector to find a function that has the same constants as the first argument
     for _, Func in pairs(getgc(true)) do -- Checks the garbage collector, this method of detecting Synapse X would be completley possible if Roblox allowed access to the garbage collector and fixed debug.getinfo + debug.getconstant
-        if type(Func) == "function" and islclosure(Func) and table.find(debug.getconstants(Func), constant) then
+        if type(Func) == "function" and isluaclosure(Func) and table.find(debug.getconstants(Func), constant) then
             return Func
         end
     end
