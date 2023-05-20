@@ -46,7 +46,7 @@ local function SerializeType(Value, Class)
 	elseif type(Value) ~= Class then -- CFrame, Vector3, UDim2, ...
 		return Class .. '.new(' .. tostring(Value) .. ')'
 	elseif Class == 'function' then
-		return Functions[Value] or '\'[Unknown ' .. (pcall(setfenv, Value, getfenv(Value)) and 'Lua' or 'C')  .. ' ' .. tostring(Value) .. ']\''
+		return Functions[Value] or '\'[Unknown  ' .. tostring(Value) .. ']\''
 	elseif Class == 'userdata' then
 		return 'newproxy(' .. tostring(not not getmetatable(Value)) .. ')'
 	elseif Class == 'thread' then
