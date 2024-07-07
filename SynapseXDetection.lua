@@ -8,11 +8,10 @@
 ]]
 
 local isluaclosure = islclosure or function(...) -- Checks to see whether or not the given function is a C function or a function made in Lua
-    local returnval = false
     if debug.getinfo(...).what == "Lua" then
-        returnval = true
+        return true
     end
-    return returnval
+    return false
 end
 
 local function ConstantScan(constant) -- Looks through the garbage collector to find a function that has the same constants as the first argument
