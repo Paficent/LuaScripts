@@ -1,3 +1,5 @@
+--!strict
+
 local Table = table.clone(table)
 
 -- Used to merge tables using keys
