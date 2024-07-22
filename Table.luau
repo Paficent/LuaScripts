@@ -1,6 +1,6 @@
 --!strict
 
-local Table = table.clone(table)
+local Table = {}
 
 -- Used to merge tables using keys
 Table.merge = function(...)
@@ -67,7 +67,7 @@ Table.filter = function(tbl: { [string]: any }, filterFunction: (key: any, value
 	local NewTable = {}
 
 	for Key, Value in next, tbl do
-		if Table.filter(Key, Value) then
+		if filterFunction(Key, Value) then
 			NewTable[#NewTable + 1] = Value
 		end
 	end
