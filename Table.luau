@@ -54,7 +54,7 @@ end
 
 --// Return a new table that's filtered fronm the old table via a filter function
 -- Table.filter(game.Players:GetChildren(), function(_, player)
--- 	if player.Team == "Criminal" then
+-- 	if player.Team.Name == "Criminal" then
 -- 		return true
 -- 	end
 -- 	return false
