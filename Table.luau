@@ -1,16 +1,6 @@
-local Table = {}
+local Table = table.clone(table)
 
-Table.mergeArray = function(...)
-	local NewTable = {}
-	local Tables = { ... }
-
-	for Index, CurrentTable in ipairs(Tables) do
-		table.move(CurrentTable, 1, #CurrentTable, #NewTable + 1, NewTable)
-	end
-
-	return NewTable
-end
-
+-- Used to merge tables using keys
 Table.merge = function(...)
 	local NewTable = {}
 	local Tables = { ... }
@@ -24,7 +14,20 @@ Table.merge = function(...)
 	return NewTable
 end
 
-Table.keys = function(tbl: { [string]: any })
+-- Used to merge arrays
+Table.mergei = function(...)
+	local NewTable = {}
+	local Tables = { ... }
+
+	for Index, CurrentTable in ipairs(Tables) do
+		table.move(CurrentTable, 1, #CurrentTable, #NewTable + 1, NewTable)
+	end
+
+	return NewTable
+end
+
+-- Get all the keys in a table, return an array
+Table.keys = function(tbl: { [string]: any }): { string }
 	assert(type(tbl) == "table")
 
 	local NewTable = {}
@@ -36,10 +39,11 @@ Table.keys = function(tbl: { [string]: any })
 	return NewTable
 end
 
-Table.indexOf = function(tbl: { [number]: any }, value: any)
+-- Get the index of a value
+Table.indexOf = function(tbl: { any }, value: any): number
 	assert(type(tbl) == "table")
 
-	for Index, Val in pairs(tbl) do
+	for Index, Val in ipairs(tbl) do
 		if Val == value then
 			return Index
 		end
@@ -48,6 +52,13 @@ Table.indexOf = function(tbl: { [number]: any }, value: any)
 	return 0
 end
 
+--// Return a new table that's filtered fronm the old table via a filter function
+-- Table.filter(game.Players:GetChildren(), function(_, player)
+-- 	if player.Team == "Criminal" then
+-- 		return true
+-- 	end
+-- 	return false
+-- end)
 Table.filter = function(tbl: { [string]: any }, filterFunction: (key: any, value: any) -> boolean)
 	assert(type(tbl) == "table")
 
@@ -62,22 +73,29 @@ Table.filter = function(tbl: { [string]: any }, filterFunction: (key: any, value
 	return NewTable
 end
 
-Table.map = function(tbl: { [string]: any }, mapFunction: (key: any, value: any) -> (any, any?))
+-- Deep searches a multilayered table until value's located, then calls returnFunction(key, value), returns all instances that value's located
+local recursiveFind
+recursiveFind = function(tbl: { [any]: any }, value: any, isLocated: (key: any, value: any) -> { [any]: any })
 	assert(type(tbl) == "table")
 
 	local NewTable = {}
 
-	for Key, Value in next, tbl do
-		local _Value, _Key = mapFunction(Key, Value)
-		NewTable[_Key or #NewTable + 1] = _Value
+	for Key, Val in pairs(tbl) do
+		NewTable[Key] = Val
+		if type(Val) == "table" then
+			NewTable[Key] = recursiveFind(Val, value, isLocated)
+		end
+		if isLocated(Key, Val) then
+			NewTable[Key] = value(Key, Val)
+		end
 	end
 
 	return NewTable
 end
+Table.recursiveFind = recursiveFind
 
+-- Created by Pyseph#0001
 Table.dump = function(tbl: { [any]: any }): string
-	-- Created by Pyseph#0001
-
 	local SpecialCharacters = {
 		["\a"] = "\\a",
 		["\b"] = "\\b",
@@ -437,7 +455,7 @@ Table.dump = function(tbl: { [any]: any }): string
 		return IsEmpty and Result .. "}" or string.sub(Result, 1, -2) .. "\n" .. TrailingTab .. "}"
 	end
 
-	return TableToString(tablearg)
+	return TableToString(tbl)
 end
 
-return Table.merge(Table, table)
+return Table
