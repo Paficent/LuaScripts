@@ -1,6 +1,4 @@
---!strict
-
-local Table = {}
+local Table = table.clone(table)
 
 -- Used to merge tables using keys
 Table.merge = function(...)
@@ -16,6 +14,7 @@ Table.merge = function(...)
 	return NewTable
 end
 
+
 -- Used to merge arrays
 Table.mergei = function(...)
 	local NewTable = {}
@@ -27,6 +26,7 @@ Table.mergei = function(...)
 
 	return NewTable
 end
+
 
 -- Get all the keys in a table, return an array
 Table.keys = function(tbl: { [string]: any }): { string }
@@ -41,6 +41,7 @@ Table.keys = function(tbl: { [string]: any }): { string }
 	return NewTable
 end
 
+
 -- Get the index of a value
 Table.indexOf = function(tbl: { any }, value: any): number
 	assert(type(tbl) == "table")
@@ -53,6 +54,7 @@ Table.indexOf = function(tbl: { any }, value: any): number
 
 	return 0
 end
+
 
 --// Return a new table that's filtered fronm the old table via a filter function
 -- Table.filter(game.Players:GetChildren(), function(_, player)
@@ -75,6 +77,7 @@ Table.filter = function(tbl: { [string]: any }, filterFunction: (key: any, value
 	return NewTable
 end
 
+
 -- Deep searches a multilayered table until value's located, then calls returnFunction(key, value), returns all instances that value's located
 local recursiveFind
 recursiveFind = function(tbl: { [any]: any }, value: any, isLocated: (key: any, value: any) -> { [any]: any })
@@ -95,6 +98,7 @@ recursiveFind = function(tbl: { [any]: any }, value: any, isLocated: (key: any, 
 	return NewTable
 end
 Table.recursiveFind = recursiveFind
+
 
 -- Created by Pyseph#0001
 Table.dump = function(tbl: { [any]: any }): string
@@ -168,8 +172,6 @@ Table.dump = function(tbl: { [any]: any }): string
 		[Color3.toHSV] = "Color3.toHSV",
 		[Color3.fromRGB] = "Color3.fromRGB",
 		[Color3.new] = "Color3.new",
-		[Delay] = "Delay",
-		[Stats] = "Stats",
 		[UserSettings] = "UserSettings",
 		[coroutine.resume] = "coroutine.resume",
 		[coroutine.yield] = "coroutine.yield",
@@ -180,10 +182,8 @@ Table.dump = function(tbl: { [any]: any }): string
 		[coroutine.isyieldable] = "coroutine.isyieldable",
 		[NumberRange.new] = "NumberRange.new",
 		[PhysicalProperties.new] = "PhysicalProperties.new",
-		[PluginManager] = "PluginManager",
 		[Ray.new] = "Ray.new",
 		[NumberSequenceKeypoint.new] = "NumberSequenceKeypoint.new",
-		[Version] = "Version",
 		[Vector2.new] = "Vector2.new",
 		[Instance.new] = "Instance.new",
 		[delay] = "delay",
@@ -206,11 +206,8 @@ Table.dump = function(tbl: { [any]: any }): string
 		[string.unpack] = "string.unpack",
 		[string.len] = "string.len",
 		[string.find] = "string.find",
-		[CellId.new] = "CellId.new",
-		[ypcall] = "ypcall",
 		[version] = "version",
 		[print] = "print",
-		[stats] = "stats",
 		[printidentity] = "printidentity",
 		[settings] = "settings",
 		[UDim2.fromOffset] = "UDim2.fromOffset",
@@ -240,7 +237,6 @@ Table.dump = function(tbl: { [any]: any }): string
 		[Vector3int16.new] = "Vector3int16.new",
 		[setmetatable] = "setmetatable",
 		[next] = "next",
-		[Wait] = "Wait",
 		[wait] = "wait",
 		[ipairs] = "ipairs",
 		[elapsedTime] = "elapsedTime",
@@ -249,8 +245,6 @@ Table.dump = function(tbl: { [any]: any }): string
 		[Vector2int16.new] = "Vector2int16.new",
 		[collectgarbage] = "collectgarbage",
 		[newproxy] = "newproxy",
-		[Spawn] = "Spawn",
-		[PluginDrag.new] = "PluginDrag.new",
 		[Region3.new] = "Region3.new",
 		[utf8.offset] = "utf8.offset",
 		[utf8.codepoint] = "utf8.codepoint",
@@ -310,7 +304,6 @@ Table.dump = function(tbl: { [any]: any }): string
 		[ColorSequence.new] = "ColorSequence.new",
 		[type] = "type",
 		[Region3int16.new] = "Region3int16.new",
-		[ElapsedTime] = "ElapsedTime",
 		[select] = "select",
 		[getmetatable] = "getmetatable",
 		[rawget] = "rawget",
@@ -322,10 +315,8 @@ Table.dump = function(tbl: { [any]: any }): string
 		[BrickColor.Red] = "BrickColor.Red",
 		[BrickColor.Gray] = "BrickColor.Gray",
 		[BrickColor.palette] = "BrickColor.palette",
-		[BrickColor.New] = "BrickColor.New",
 		[BrickColor.Black] = "BrickColor.Black",
 		[BrickColor.Green] = "BrickColor.Green",
-		[BrickColor.Random] = "BrickColor.Random",
 		[BrickColor.DarkGray] = "BrickColor.DarkGray",
 		[BrickColor.random] = "BrickColor.random",
 		[BrickColor.new] = "BrickColor.new",
@@ -333,12 +324,9 @@ Table.dump = function(tbl: { [any]: any }): string
 		[UDim.new] = "UDim.new",
 		[Axes.new] = "Axes.new",
 		[error] = "error",
-		[debug.traceback] = "debug.traceback",
-		[debug.profileend] = "debug.profileend",
-		[debug.profilebegin] = "debug.profilebegin",
 	}
 
-	function GetHierarchy(Object)
+	local function GetHierarchy(Object)
 		local Hierarchy = {}
 
 		local ChainLength = 1
@@ -459,5 +447,6 @@ Table.dump = function(tbl: { [any]: any }): string
 
 	return TableToString(tbl)
 end
+
 
 return Table
